@@ -6,13 +6,19 @@
 #include <stdbool.h>
 #include "tree.h"
 
+// This function reads in an array of numbers from a file
+// it returns whether it is successful,
+// and writes the array and the size of the array to the int ** and int * given it
 static bool readArray(const char * filename, int * * array, int * size)
 {
+  // Open file
   FILE * fptr = fopen(filename, "r");
   if (fptr == NULL)
     {
       return false;
     }
+
+  // Count the integers in the file, return if none
   int numint = 0;
   int value;
   while (fscanf(fptr, "%d", & value) == 1)
@@ -24,8 +30,12 @@ static bool readArray(const char * filename, int * * array, int * size)
       // no integer to read
       return false;
     }
+  
+  // Write the resulting count to "size" and allocate an array of that size
   * size = numint;
   int * arr = malloc(sizeof(int) * numint);
+
+  // Go back to the start of the file and read in that many integers to our array
   fseek (fptr, 0, SEEK_SET);
   int ind = 0;
   while (ind < numint)
@@ -39,6 +49,8 @@ static bool readArray(const char * filename, int * * array, int * size)
 	}
       ind ++;
     }
+
+  // Close file, write the pointer to the array where asked
   fclose (fptr);
   * array = arr;
   return true;
@@ -47,39 +59,49 @@ static bool readArray(const char * filename, int * * array, int * size)
 int main(int argc, char * * argv)
 {
   // argv[1]: inorder (input)
-  // argv[2]: postorder (input)
+  // argv[2]: preorder (input)
   if (argc < 3)
     {
       return EXIT_FAILURE;
     }
+
+  // Read in arrays from files
   int * inArray = NULL;
-  int * postArray = NULL;
+  int * preArray = NULL;
   int insize;
-  int postsize;
+  int presize;
   bool rtv;
   rtv = readArray(argv[1], & inArray, & insize);
   if (rtv == false)
     {
       return EXIT_FAILURE;
     }
-  rtv = readArray(argv[2], & postArray, & postsize);
+  rtv = readArray(argv[2], & preArray, & presize);
   if (rtv == false)
     {
       free (inArray);
       return EXIT_FAILURE;
     }
-  if (insize != postsize)
+  if (insize != presize)
     {
       // mismatch
       free (inArray);
-      free (postArray);
+      free (preArray);
       return EXIT_FAILURE;
     }
+
+  // Build tree with the student's algorithm
   Tree * tr = NULL;
-  tr = buildTree(inArray, postArray, insize);
-  printPath(tr, inArray[0]);
+  tr = buildTree(inArray, preArray, insize);
+
+  // The sought value is, for our tests, 24 divided by the one-digit number at the end of the filenames
+  char * divisor = argv[1];
+  while (*(divisor + 1)) ++divisor;
+  printPath(tr, 24 / (divisor - "0"));
+
+  // Free memory
   freeTree (tr);
   free (inArray);
-  free (postArray);
+  free (preArray);
   return EXIT_SUCCESS;
 }
