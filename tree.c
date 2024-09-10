@@ -50,7 +50,7 @@ void freeTree(Tree * tr)
 
 /*
 buildTree:
-Given the infix (inArray), postfix (postArray), and size
+Given the infix (inArray), prefix (preArray), and size
 of a binary tree, construct a binary tree
 Note that this tree is not necessarily a binary search tree
 */
