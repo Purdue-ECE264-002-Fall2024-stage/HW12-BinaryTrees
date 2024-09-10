@@ -97,7 +97,7 @@ int main(int argc, char * * argv)
   // The sought value is, for our tests, 24 divided by the one-digit number at the end of the filenames
   char * divisor = argv[1];
   while (*(divisor + 1)) ++divisor;
-  printPath(tr, 24 / (divisor - "0"));
+  printPath(tr, 24 / (*(divisor) - '0'));
 
   // Free memory
   freeTree (tr);
