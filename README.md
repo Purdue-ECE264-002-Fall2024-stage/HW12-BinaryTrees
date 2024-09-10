@@ -5,6 +5,7 @@ Learning Goals
 
 * Construct binary trees from in-order and pre-order expressions
 * Find the path from a node to the root
+* Write your own makefile to compare with test cases
 
 Construct a Binary Tree
 =======================
@@ -26,9 +27,11 @@ path from node 7 includes 7, 3, and 1. The path from 8 includes 8, 6,
 3, and 1. Please notice that this is not necessarily a binary search
 tree.
 
-For simplicity, this assignment asks you to print the path from bottom to top (the root is printed last).  You can assume that the value of the node you're looking for only appears once in the binary tree.
+For simplicity, this assignment asks you to print the path from bottom to top (the root is printed last).  You can assume that the value of the node you're looking for appears once and only once in the binary tree.
 
 Helper functions are allowed in both parts of this assignment.
+
+Note that, in main.c, the value your printPath function starts the path from is derived from the filename.  This works for the given test cases, but be careful in writing your own.
 
 Submission
 ==========
