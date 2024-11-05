@@ -33,6 +33,12 @@ Helper functions are allowed in both parts of this assignment.
 
 Note that, in main.c, the value your printPath function starts the path from is derived from the filename.  This works for the given test cases, but be careful in writing your own.
 
+Makefile
+=======================
+
+For this homework you are expected to write your own makefile. You can copy a makefile template from a previous assignment and tweak it to suit this assignment. Make sure that the right files are listed for SRCS, and note that the two inputs (inorder and preorder) are from separately named folders. You can access a input file by [name of folder]/[file name]. an example would be "inorder/in1". 
+
+
 Submission
 ==========
 
